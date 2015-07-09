@@ -11,6 +11,9 @@
 
 console.log("HEAT Hack");
 
+var heatHack = window.heatHack = {};
+
+
 
 function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
@@ -27,7 +30,16 @@ Array.prototype.getUnique = function(){
    }
    return a;
 }
-
+Array.prototype.remove = function() {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
 
 function getAuthToken()
 {
@@ -38,7 +50,7 @@ function getAuthToken()
 }
 var authToken = getAuthToken();
 
-			function getName(userName,divs)
+			function getName(userName)
 			{
 					var myRequest = new XMLHttpRequest();
 
@@ -47,14 +59,15 @@ var authToken = getAuthToken();
                         if (myRequest.response && myRequest.response.d.data && myRequest.response.d.data.length>0)
                         {
                             console.log(myRequest.response.d.data[0]);
-                            console.log(divs);
+                            console.log(heatHack.divs);
 
-                            for (i=0;i<divs.length;i++)
+                            for (i=0;i< heatHack.divs.length;i++)
                             {
-                                console.log('text:'+divs[i].innerText + 'Login ID'+ myRequest.response.d.data[0].LoginID);
-                                if (divs[i].innerText == myRequest.response.d.data[0].LoginID)
+                                console.log('text:'+heatHack.divs[i].innerText + 'Login ID'+ myRequest.response.d.data[0].LoginID);
+                                if (heatHack.divs[i].innerText == myRequest.response.d.data[0].LoginID)
                                 {
-                                    divs[i].innerText = myRequest.response.d.data[0].DisplayName;
+                                    heatHack.divs[i].innerText = myRequest.response.d.data[0].DisplayName;
+                                    heatHack.divs.remove(heatHack.divs[i]);
                                 }
                             }
 
@@ -89,7 +102,7 @@ var pageFrames = document.getElementsByTagName('iframe');
 //contentDocument.querySelectorAll
 
     var users = [];
-    var divs = [];
+    heatHack.divs = [];
 
    for (j=0;j<pageFrames.length;j++)
    {
@@ -102,7 +115,7 @@ var pageFrames = document.getElementsByTagName('iframe');
 		   if (values != 'No' && values !='InternalServices'){
              // console.log({'value':value,'el':trs[i]});
                 users.push(values);
-               divs.push(trs[i]);
+               heatHack.divs.push(trs[i]);
 
            }
           // users.push({value:value,el:trs[i]});
@@ -112,14 +125,14 @@ var pageFrames = document.getElementsByTagName('iframe');
 
    }
     console.log("divs");
-    console.log(divs);
+    console.log(heatHack.divs);
        users = users.getUnique();
     console.log("users");
        console.log(users);
 
     for(x=0;x<users.length;x++)
     {
-        getName(users[x],divs);
+        getName(users[x]);
     }
 
 }
