@@ -136,3 +136,14 @@ var pageFrames = document.getElementsByTagName('iframe');
     }
 
 }
+
+
+setTimeout(function(){
+var button = document.createElement('button');
+button.setAttribute('id','HH_parseusers');
+button.setAttribute('type','button');
+button.innerText = 'fetch users';
+button.addEventListener("click", GM_parseUsers, false);
+
+document.getElementById('main_body').insertBefore(button,document.getElementById('main_body').firstChild);
+}, 10000);
