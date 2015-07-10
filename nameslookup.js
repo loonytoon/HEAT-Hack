@@ -67,7 +67,7 @@ var authToken = getAuthToken();
                                 if (heatHack.divs[i].innerText == myRequest.response.d.data[0].LoginID)
                                 {
                                     heatHack.divs[i].innerText = myRequest.response.d.data[0].DisplayName;
-                                    heatHack.divs.remove(heatHack.divs[i]);
+                                  //  heatHack.divs.remove(heatHack.divs[i]);
                                 }
                             }
 
