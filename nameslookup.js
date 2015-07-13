@@ -108,7 +108,7 @@ var pageFrames = document.getElementsByTagName('iframe');
    {
      var framex = pageFrames[j].contentDocument;
 
-       var trs = framex.querySelectorAll('table[class=x-grid3-row-table] td:nth-child(5) div');
+       var trs = framex.querySelectorAll('table[class=x-grid3-row-table] td:nth-child(5) div,table[class=x-grid3-row-table] td:nth-child(2) div');
        for (var i = 0; i<trs.length;i++)
        {
            var values = trs[i].innerText;
