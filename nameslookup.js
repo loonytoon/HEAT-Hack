@@ -45,15 +45,16 @@ function getAuthToken()
 {
  var regx = /(ReSA=)([\w]*)(;)/;
     var x = document.cookie;
-
+    console.log(document.cookie);
+    console.log(regx.exec(x));
     return regx.exec(x)[2];
 }
-var authToken = getAuthToken();
+
 
 			function getName(userName)
 			{
 					var myRequest = new XMLHttpRequest();
-
+          var authToken = getAuthToken();
 					myRequest.onload = function(e) {
 						//console.log(myRequest.response);
                         if (myRequest.response && myRequest.response.d.data && myRequest.response.d.data.length>0)
@@ -104,6 +105,8 @@ var pageFrames = document.getElementsByTagName('iframe');
     var users = [];
     heatHack.divs = [];
 
+    var usermatch = /[a-zA-Z]{4}\d{4}/;
+
    for (j=0;j<pageFrames.length;j++)
    {
      var framex = pageFrames[j].contentDocument;
@@ -112,7 +115,7 @@ var pageFrames = document.getElementsByTagName('iframe');
        for (var i = 0; i<trs.length;i++)
        {
            var values = trs[i].innerText;
-		   if (values != 'No' && values !='InternalServices'){
+		   if (usermatch.test(values)){
              // console.log({'value':value,'el':trs[i]});
                 users.push(values);
                heatHack.divs.push(trs[i]);
